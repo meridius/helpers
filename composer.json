@@ -1,0 +1,21 @@
+{
+	"name": "meridius/helpers",
+	"type": "library",
+	"description": "Assorted PHP helpers",
+	"keywords": ["helper", "nette", "file", "string"],
+	"homepage": "https://github.com/meridius/helpers",
+	"license": "Apache-2.0",
+	"authors": [
+		{
+			"name": "Martin Lukeš",
+			"homepage": "https://github.com/meridius/helpers"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/meridius/helpers/issues"
+	},
+	"require": {
+		"nette/utils": "~2.3.0",
+		"nette/finder": "~2.3.0"
+	}
+}
