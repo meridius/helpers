@@ -2,10 +2,20 @@
 
 namespace Meridius\Helpers;
 
-use \Nette\Utils\Strings,
-		\Nette\Object;
+use \Nette\Utils\Strings;
+use \Nette\Object;
 
 class StringHelper extends Object {
+
+	/**
+	 * Trimmed variable will be returned only if is string, <br/>
+	 * original variable is returned if not
+	 * @param mixed $param
+	 * @return mixed
+	 */
+	public static function safeTrim($param) {
+		return (is_string($param) && strlen($param) > 0) ? trim($param) : $param;
+	}
 
 	/**
 	 * Converts the given string to "snake_case".

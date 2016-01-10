@@ -13,7 +13,7 @@ class FileHelper extends Object {
 	 */
 	public static function deleteDir($dirPath) {
 		if (!is_dir($dirPath)) {
-			throw new Exception("$dirPath must be a directory");
+			throw new \Exception("$dirPath must be a directory");
 		}
 		if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
 			$dirPath .= '/';

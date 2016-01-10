@@ -15,12 +15,15 @@
 		"issues": "https://github.com/meridius/helpers/issues"
 	},
 	"require": {
-		"nette/utils": "~2.3.0",
-		"nette/finder": "~2.3.0"
+		"nette/utils": "~2",
+		"nette/finder": "~2"
 	},
 	"autoload": {
-		"psr-4": {
-			"Meridius\\Helpers\\": ""
+		"psr-0": {
+			"Meridius\\Helpers\\": "src/"
 		}
+	},
+	"require-dev": {
+		"nette/tester": "^1.6"
 	}
 }
