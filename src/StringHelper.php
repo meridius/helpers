@@ -60,7 +60,14 @@ class StringHelper extends Object {
 	 * @return string
 	 */
 	public static function toCamelCase($string) {
-		return Strings::firstLower(self::toPascalCase($string));
+		static $canUse = null;
+		if (is_null($canUse)) {
+			$canUse = method_exists(Strings::class, 'firstLower'); // Nette/Utils >= 2.3 only
+		}
+		$pascal = self::toPascalCase($string);
+		return $canUse
+			? Strings::firstLower($pascal)
+			: Strings::lower(Strings::substring($pascal, 0, 1)) . Strings::substring($pascal, 1);
 	}
 
 }
