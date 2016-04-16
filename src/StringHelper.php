@@ -2,8 +2,8 @@
 
 namespace Meridius\Helpers;
 
-use \Nette\Utils\Strings;
-use \Nette\Object;
+use Nette\Object;
+use Nette\Utils\Strings;
 
 class StringHelper extends Object {
 
@@ -24,7 +24,7 @@ class StringHelper extends Object {
 	 * @link http://stackoverflow.com/a/1993772/836697 thanks to cletus
 	 */
 	public static function toSnakeCase($string) {
-		$matches = array();
+		$matches = [];
 		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $string, $matches);
 		$ret = $matches[0];
 		foreach ($ret as &$match) {
@@ -49,9 +49,9 @@ class StringHelper extends Object {
 	 */
 	public static function toPascalCase($string) {
 		return Strings::replace(
-			Strings::capitalize(
-				self::toSnakeCase($string)
-			), "/[_-]/");
+			Strings::capitalize(self::toSnakeCase($string)),
+			'/[_-]/'
+		);
 	}
 
 	/**
