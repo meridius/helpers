@@ -70,4 +70,52 @@ class StringHelper extends Object {
 			: Strings::lower(Strings::substring($pascal, 0, 1)) . Strings::substring($pascal, 1);
 	}
 
+	/**
+	 * Use this to get multidimensional array out of Nette-named inputs,<br/>
+	 * which were serialized in javascript to 'serialized object' by JS serializeObject function<br/>
+	 * @param array $formValuesArray In format ['rates[values][USD]' => 0.54]
+	 * @link https://raw.githubusercontent.com/cowboy/jquery-misc/master/jquery.ba-serializeobject.js JS serializeObject
+	 * @return array
+	 */
+	public static function unserializeFormValues(array $formValuesArray) {
+		$out = [];
+		foreach ($formValuesArray as $key => $val) {
+			$explodedKey = self::explodeKey($key);
+			$row = self::foldKey($explodedKey, $val);
+			$out = array_merge_recursive($out, $row);
+		}
+		return $out;
+	}
+
+	/**
+	 * Make array of original key parts<br/>
+	 * This was part of \Nette\Forms\Controls\BaseControl::loadHttpData()
+	 * @param string $key In format 'rates[values][USD]'
+	 * @return array
+	 */
+	private static function explodeKey($key) {
+		return explode(
+			'[',
+			strtr(
+				str_replace(['[]', ']'], '', $key),
+				'.',
+				'_'
+			)
+		);
+	}
+
+	/**
+	 * Put value at the far end of (multidimensional) array
+	 * @param array $explodedKey
+	 * @param mixed $value
+	 * @return array
+	 */
+	private static function foldKey(array $explodedKey, $value) {
+		$row = [];
+		foreach (array_reverse($explodedKey) as $keyPart) {
+			$row = [$keyPart => $row ? : $value];
+		}
+		return $row;
+	}
+
 }

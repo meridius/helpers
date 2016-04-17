@@ -74,6 +74,51 @@ class StringHelperTest extends Tester\TestCase {
 	public function testSafeTrim($in, $expected) {
 		Assert::same($expected, StringHelper::safeTrim($in));
 	}
+	
+	/**
+	 * 
+	 */
+	public function getUnserializeFormValuesData() {
+		return [
+			[
+				[],
+				[]
+			], [
+				['rates[values][USD]' => 0.54], 
+				['rates' => ['values' => ['USD' => 0.54]]]
+			], [
+				['USD' => 0.54],
+				['USD' => 0.54]
+			], [
+				[
+					'animal' => 'dog',
+					'color' => ['blue', 'green'],
+					'rates[values][USD]' => 0.54,
+					'rates[values][EUR]' => 0.13,
+					'rates[values][GBP]' => 1.87,
+				], [
+					'animal' => 'dog',
+					'color' => ['blue', 'green'],
+					'rates' => [
+						'values' => [
+							'USD' => 0.54,
+							'EUR' => 0.13,
+							'GBP' => 1.87,
+						]
+					]
+				]
+			]
+		];
+	}
+	
+	/**
+	 * @dataProvider getUnserializeFormValuesData
+	 * @param string $in
+	 * @param array $expected
+	 */
+	public function testUnserializeFormValues($in, $expected) {
+		Assert::same($expected, StringHelper::unserializeFormValues($in));
+	}
 
 }
 
